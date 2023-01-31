@@ -1,23 +1,21 @@
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Tile from "./Tile";
-import styles from "./Board.module.scss"
-// import Toggle from "../Toggle/Toggle";
+import styles from './Board.module.scss'
+import useBoard from "./useBoard";
+import { TileType } from "./types";
 
-type BoardProps = {
-  width: number;
-};
+const Board = () => {
+  const config = { width: 25 };
 
-const Board = ({ width }: BoardProps) => {
-  // const { actions, tiles } = useBoard(({ actions, tiles }) => ({ actions, tiles }));
-
-  // useEffect(() => actions.init({ width }), [actions, width]);
+  const { tiles } = useBoard({ config });
 
   return (
     <div
       id="board"
       className={styles.board}
     >
+      {tiles.map((tile: TileType) => <Tile tile={tile} />)}
     </div>
   );
 };
