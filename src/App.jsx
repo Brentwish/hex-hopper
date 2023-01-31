@@ -1,5 +1,9 @@
-import Board from './components/Board'
+import Board from "./components/Board";
 
-const App = () => <Board />;
+const App = () => (
+  <div className="app">
+    <Board />
+  </div>
+);
 
 export default App;

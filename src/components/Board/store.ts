@@ -4,7 +4,7 @@ import { BoardConfig, TileType } from "./types";
 type BoardState = {
   tiles: TileType[];
   actions: {
-    init: ({ width }: BoardConfig) => void;
+    init: (config: BoardConfig) => void;
   };
 };
 

@@ -15,7 +15,7 @@ const Board = () => {
       id="board"
       className={styles.board}
     >
-      {tiles.map((tile: TileType) => <Tile tile={tile} />)}
+      {tiles.map((tile: TileType) => <Tile key={tile.id} tile={tile} />)}
     </div>
   );
 };

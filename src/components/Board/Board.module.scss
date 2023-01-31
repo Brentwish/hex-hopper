@@ -1,4 +1,27 @@
+/* https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
 .board {
-  width: 100vw;
-  width: 100vh;
+  --size: 100px;
+  --margin: 4px;
+  --f: calc(var(--size) * 1.732 + 4 * var(--margin) - 1px);
+
+  font-size: 0; /* disable white space between inline block element */
+
+  .tile {
+    width: var(--size);
+    margin: var(--margin);
+    height: calc(var(--size) * 1.1547);
+    display: inline-block;
+    font-size: initial; /* we reset the font-size if we want to add some content */
+    clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+    margin-bottom: calc(var(--margin) - var(--size) * 0.2885);
+    background-color: gray;
+  }
+
+  &::before {
+    content: "";
+    width: calc(var(--size) / 2 + var(--margin));
+    float: left;
+    height: 120%;
+    shape-outside: repeating-linear-gradient(#0000 0 calc(var(--f) - 3px), #000 0 var(--f));
+  }
 }
