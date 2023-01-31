@@ -11,11 +11,13 @@ const Board = () => {
   const { tiles } = useBoard({ config });
 
   return (
-    <div
-      id="board"
-      className={styles.board}
-    >
-      {tiles.map((tile: TileType) => <Tile key={tile.id} tile={tile} />)}
+    <div className="flex">
+      <div
+        id="board"
+        className={styles.board}
+      >
+        {tiles.map((tile: TileType) => <Tile key={tile.id} tile={tile} />)}
+      </div>
     </div>
   );
 };
