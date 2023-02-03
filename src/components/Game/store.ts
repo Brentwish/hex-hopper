@@ -1,41 +1,44 @@
 import { create } from "zustand";
-import { BoardConfig, GameConfig, PlayerType, TileType } from "./types";
+import { GameConfig, TileType } from "./types";
 import config from "./config";
 
-type GameState = {
-  board: BoardConfig;
+type GameActions = {
+  init: (config: GameConfig) => void;
+  update: (deltaTime: DOMHighResTimeStamp) => void;
+}
+
+type GameState = GameConfig & {
+  actions: GameActions;
   tiles: TileType[];
-  player: PlayerType;
-  actions: {
-    init: (config: GameConfig) => void;
-    update: (deltaTime: DOMHighResTimeStamp) => void;
-  };
 };
 
 const useGameStore = create<GameState>(set => ({
-  board: config.board,
-  player: config.player,
+  ...config,
   tiles: [],
   actions: {
     init: (config: GameConfig) => {
-      const { board } = config;
+      const { board: { width, height } } = config;
       const tiles: TileType[] = [];
 
-      Array.from(Array(board.width * board.height).keys()).forEach(x => {
-        const id = tiles.length;
+      Array.from(Array(height).keys()).forEach(y => {
+        Array.from(Array(width).keys()).forEach(x => {
+          if (y % 2 === 0 || x < width - 1) {
+            const id = tiles.length;
+            const yOffset = 0;
 
-        tiles.push({ id, x });
-      });
-
-      set(() => ({ board, tiles }));
-    },
-    update: (t: DOMHighResTimeStamp) => {
-      set((state) => {
-        const { tiles } = state;
-
-        tiles.forEach((tile: TileType) => {
-          tile.x += t / 10;
+            tiles.push({ id, x, y, yOffset });
+          }
         });
+      })
+
+      set(() => ({ tiles }));
+    },
+    update: (deltaTime: DOMHighResTimeStamp) => {
+      set((state: GameState) => {
+        const tiles = state.tiles.map(tile => ({
+          ...tile,
+          yOffset: tile.yOffset + (deltaTime / state.gameSpeed)
+        }));
 
         return { tiles };
       });

@@ -1,6 +1,8 @@
 export type TileType = {
   id: number;
   x: number;
+  y: number;
+  yOffset: number;
 };
 
 export type PlayerType = {
@@ -8,7 +10,7 @@ export type PlayerType = {
   width: number;
   y: number;
   x: number;
-  id?: number;
+  id: number;
 };
 
 export type BoardConfig = {
@@ -19,6 +21,7 @@ export type BoardConfig = {
 }
 
 export type GameConfig = {
+  gameSpeed: number;
   player: PlayerType;
   board: BoardConfig;
 };

@@ -6,10 +6,11 @@ import Board from "./Board";
 import config from "./config";
 
 const Game = () => {
-  const { actions } = useGameStore(({ actions }) => ({ actions }));
+  const { tiles, actions } = useGameStore(({ tiles, actions }) => ({ tiles, actions }));
   const { stop, run, running } = useAnimationFrame(actions.update);
 
   useEffect(() => actions.init(config), []);
+  useEffect(() => console.log(tiles), [tiles]);
 
   return (
     <div className="flex flex-col items-center">
