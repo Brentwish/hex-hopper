@@ -3,7 +3,7 @@ import React from "react";
 import Tile from "./Tile";
 import styles from '../Game.module.scss'
 import { TileType } from "../types";
-import Player from "../../Player";
+import Player from "../Player";
 import useGameStore from "../store";
 
 const Board = () => {
@@ -19,7 +19,6 @@ const Board = () => {
           width: width * (tileSize + margin) + tileSize / 2,
           height: (width * (tileSize + margin)) * 1.1547,
           top: -1 * tileSize * (2 / Math.sqrt(3)),
-          maxHeight: '100vh',
         }}
       >
         {tiles.map((tile: TileType) => <Tile key={tile.id} tile={tile} />)}

@@ -2,7 +2,7 @@ import { GameConfig } from "./types";
 
 export const config: GameConfig = {
   board: {
-    width: 10,
+    width: 20,
     height: 15,
     margin: 18,
     tileSize: 75,
