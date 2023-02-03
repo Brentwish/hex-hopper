@@ -1,7 +1,7 @@
 export type TileType = {
   id: number;
   x: number;
-  y: number;
+  isOdd: boolean;
   yOffset: number;
 };
 

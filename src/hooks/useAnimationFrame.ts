@@ -36,4 +36,30 @@ const useAnimationFrame = (callback: (t: DOMHighResTimeStamp) => void) => {
   return { run, stop, running };
 };
 
+export const useInterval = (callback: (t: DOMHighResTimeStamp) => void) => {
+  const [running, setRunning] = useState(false);
+  const id = useRef(0);
+  const lastUpdatedAt = useRef(0);
+
+  const animate = (time: DOMHighResTimeStamp) => {
+
+    callback(1000 / FRAME_RATE)
+
+    id.current = setTimeout(animate, 1000 / FRAME_RATE);
+  };
+
+  const run = () => {
+    animate(lastUpdatedAt.current);
+    setRunning(true);
+  };
+
+  const stop = () => {
+    clearInterval(id.current);
+    setRunning(false);
+    lastUpdatedAt.current = 0;
+  };
+
+  return { run, stop, running };
+};
+
 export default useAnimationFrame;

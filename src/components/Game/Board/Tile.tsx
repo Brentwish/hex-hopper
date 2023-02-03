@@ -3,14 +3,13 @@ import { TileType } from "../types";
 import styles from '../Game.module.scss'
 import useGameStore from "../store";
 
-const Tile = ({ tile: { id, x, y, yOffset } }: { tile: TileType }) => {
-  const { board } = useGameStore(({ board }) => ({ board }));
-  const { margin, tileSize } = board;
+const Tile = ({ tile: { id, x, isOdd, yOffset } }: { tile: TileType }) => {
+  const { board: { margin, tileSize } } = useGameStore(({ board }) => ({ board }));
 
   const mt = margin + tileSize;
   const style = {
-    left: x * mt + (mt / 4) + (y % 2 === 1 ? mt / 2 : 0),
-    top: y * mt * (1 - 1 / (4 * Math.sqrt(3))) + yOffset,
+    left: x * mt + (mt / 4) + (isOdd ? mt / 2 : 0),
+    top: yOffset,
     width: tileSize,
     height: tileSize * (2 / Math.sqrt(3)),
   };

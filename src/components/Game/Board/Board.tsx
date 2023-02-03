@@ -11,17 +11,19 @@ const Board = () => {
   const { width, margin, tileSize } = board;
 
   return (
-    <div id="board-container" className="flex">
+    <div id="board-container" className="flex overflow-hidden">
       <div
         id="board"
         className={styles.board}
         style={{
           width: width * (tileSize + margin) + tileSize / 2,
           height: (width * (tileSize + margin)) * 1.1547,
+          top: -1 * tileSize * (2 / Math.sqrt(3)),
+          maxHeight: '100vh',
         }}
       >
-        <Player player={player} />
         {tiles.map((tile: TileType) => <Tile key={tile.id} tile={tile} />)}
+        <Player player={player} />
       </div>
     </div>
   );

@@ -12,8 +12,8 @@ export const config: GameConfig = {
     id: 1,
     height: 35,
     width: 35,
-    x: 1,
-    y: 1,
+    x: 150,
+    y: 150,
   },
 };
 

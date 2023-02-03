@@ -1,19 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
-import useAnimationFrame from "../../hooks/useAnimationFrame";
+import useAnimationFrame, { useInterval } from "../../hooks/useAnimationFrame";
 import useGameStore from "./store";
 import Board from "./Board";
 import config from "./config";
 
 const Game = () => {
-  const { tiles, actions } = useGameStore(({ tiles, actions }) => ({ tiles, actions }));
+  const { actions } = useGameStore(({ actions }) => ({ actions }));
   const { stop, run, running } = useAnimationFrame(actions.update);
 
   useEffect(() => actions.init(config), []);
-  useEffect(() => console.log(tiles), [tiles]);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center max-h-screen">
       <div className="mb-5">
         <button 
           type="button"
