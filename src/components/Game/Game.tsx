@@ -4,6 +4,7 @@ import useAnimationFrame, { useInterval } from "../../hooks/useAnimationFrame";
 import useGameStore from "./store";
 import Board from "./Board";
 import config from "./config";
+import Slider from "../Slider";
 
 const Game = () => {
   const { actions, board } = useGameStore(({ actions, board }) => ({ actions, board }));
@@ -31,28 +32,24 @@ const Game = () => {
           </button>
         </div>
 
-        <div className="relative pt-1 text-white font-bold mb-5">
-          <label htmlFor="tile-size-slider" className="form-label ">Tile size: {board.tileSize}</label>
-          <input
-            id="tile-size-slider"
-            type="range"
-            className="form-range accent-green-500 w-full h-6 p-0 focus:outline-none focus:ring-0 focus:shadow-none"
-            value={board.tileSize}
+        <div className="relative pt-1 text-white mb-5">
+          <Slider
+            id="tile-size"
+            label="Tile Size: "
             min={12}
             max={96}
-            onChange={e => actions.setTileSize(parseInt(e.target.value))}
-            onMouseMove={e => actions.setTileSize(parseInt((e.target as HTMLInputElement).value))}
+            color="green"
+            value={board.tileSize}
+            onSlide={actions.setTileSize}
           />
-          <label htmlFor="margin-slider" className="form-label ">Tile margin: {board.margin}</label>
-          <input
-            id="margin-slider"
-            type="range"
-            className="form-range accent-green-500 w-full h-6 p-0 focus:outline-none focus:ring-0 focus:shadow-none"
-            value={board.margin}
+          <Slider
+            id="margin"
+            label="Margin: "
             min={0}
             max={24}
-            onChange={e => actions.setMargin(parseInt(e.target.value))}
-            onMouseMove={e => actions.setMargin(parseInt((e.target as HTMLInputElement).value))}
+            color="green"
+            value={board.margin}
+            onSlide={actions.setMargin}
           />
         </div>
       </div>
