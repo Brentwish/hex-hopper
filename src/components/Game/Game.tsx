@@ -5,6 +5,7 @@ import useGameStore from "./store";
 import Board from "./Board";
 import config from "./config";
 import Slider from "../Slider";
+import BoldButton from "./Buttons/BoldButton";
 
 const Game = () => {
   const { actions, board } = useGameStore(({ actions, board }) => ({ actions, board }));
@@ -15,21 +16,17 @@ const Game = () => {
   return (
     <div className="flex flex-col items-center max-h-screen p-5">
       <div id="control-bar" className="flex mb-5 w-full justify-around">
-        <div className="">
-          <button
-            type="button"
-            className="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded"
+        <div className="flex items-center">
+          <BoldButton
+            label={running ? 'Stop' : 'Start'}
+            color="green"
             onClick={running ? stop : run}
-          >
-            {running ? 'Stop' : 'Start'}
-          </button>
-          <button
-            type="button"
-            className="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded ml-5"
+          />
+          <BoldButton
+            label="Reset"
+            color="green"
             onClick={() => actions.init(config)}
-          >
-            Reset
-          </button>
+          />
         </div>
 
         <div className="relative pt-1 text-white mb-5">
