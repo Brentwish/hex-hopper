@@ -1,8 +1,8 @@
-import Board from "./components/Board";
+import Game from "./components/Game";
 
 const App = () => (
   <div className="app">
-    <Board />
+    <Game />
   </div>
 );
 

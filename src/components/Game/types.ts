@@ -12,6 +12,13 @@ export type PlayerType = {
 };
 
 export type BoardConfig = {
-  player: PlayerType;
   width: number;
+  height: number;
+  tileSize: number;
+  margin: number;
+}
+
+export type GameConfig = {
+  player: PlayerType;
+  board: BoardConfig;
 };

@@ -1,0 +1,15 @@
+/* https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
+.board {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+
+  .tile {
+    display: inline-block;
+    clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+    background-color: gray;
+    text-align: center;
+    color: white;
+    position: absolute;
+  }
+}

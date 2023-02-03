@@ -1,6 +1,6 @@
 
 import React from "react";
-import { PlayerType } from "../Board/types";
+import { PlayerType } from "../Game/types";
 import styles from './Player.module.scss'
 
 type PlayerProps = {
