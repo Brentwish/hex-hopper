@@ -15,8 +15,8 @@ const Game = () => {
 
   return (
     <div className="flex flex-col items-center max-h-screen p-5">
-      <div id="control-bar" className="flex mb-5 w-full justify-around">
-        <div className="flex items-center">
+      <div id="control-bar" className="flex mb-5 w-full justify-center">
+        <div className="flex items-center mr-5">
           <BoldButton
             label={running ? 'Stop' : 'Start'}
             color="green"
@@ -25,11 +25,11 @@ const Game = () => {
           <BoldButton
             label="Reset"
             color="green"
-            onClick={() => actions.init(config)}
+            onClick={() => actions.init({ ...config, board: board })}
           />
         </div>
 
-        <div className="relative pt-1 text-white mb-5">
+        <div className="relative pt-1 text-white mb-5 ml-5">
           <Slider
             id="tile-size"
             label="Tile Size: "

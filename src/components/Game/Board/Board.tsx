@@ -17,7 +17,6 @@ const Board = () => {
         className={styles.board}
         style={{
           width: width * (tileSize + margin) + tileSize / 2,
-          height: (width * (tileSize + margin)) * 1.1547,
           top: -1 * tileSize * (2 / Math.sqrt(3)),
         }}
       >

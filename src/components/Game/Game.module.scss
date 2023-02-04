@@ -1,9 +1,8 @@
-/* https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
 .board {
   position: relative;
   overflow: hidden;
   user-select: none;
-  max-height: 100vh;
+  height: 100vh;
 
   .tile {
     display: inline-block;

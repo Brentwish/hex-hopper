@@ -41,8 +41,28 @@ const useGameStore = create<GameState>(set => ({
         return { maxTile, tiles }
       });
     },
-    setTileSize: (size: number) => set(state => ({ board: { ...state.board, tileSize: size }})),
-    setMargin: (margin: number) => set(state => ({ board: { ...state.board, margin }})),
+    setTileSize: (size: number) => set(state => {
+      const { board, tiles } = state;
+
+      return {
+        board: { ...board, tileSize: size },
+        tiles: tiles.map(t => ({
+          ...t,
+          yOffset: t.yOffset * (board.margin + size) / (board.margin + board.tileSize),
+        }))
+      };
+    }),
+    setMargin: (margin: number) => set(state => {
+      const { board, tiles } = state;
+
+      return {
+        board: { ...board, margin },
+        tiles: tiles.map(t => ({
+          ...t,
+          yOffset: t.yOffset * (margin + board.tileSize) / (board.margin + board.tileSize),
+        }))
+      };
+    }),
     update: (deltaTime: DOMHighResTimeStamp) => {
       set((state: GameState) => {
         let { maxTile } = state;
@@ -50,7 +70,7 @@ const useGameStore = create<GameState>(set => ({
 
         const tiles = state.tiles.map(tile => ({
           ...tile,
-          yOffset: tile.yOffset + (deltaTime / state.gameSpeed)
+          yOffset: tile.yOffset + (deltaTime / state.gameSpeed),
         }));
 
         if (tiles[0].yOffset >= (margin + tileSize) * (1 - 1 / (4 * Math.sqrt(3)))) {
@@ -61,7 +81,7 @@ const useGameStore = create<GameState>(set => ({
             yOffset: 0,
           }));
 
-          return { maxTile, tiles: [...newTiles, ...tiles].splice(0, width * height - 1) };
+          return { maxTile, tiles: [...newTiles, ...tiles].splice(0, Math.round(2 * (width * height - 1))) };
         }
 
         return { maxTile, tiles };
