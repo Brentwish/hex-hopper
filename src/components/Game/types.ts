@@ -3,6 +3,7 @@ export type TileType = {
   x: number;
   isOdd: boolean;
   yOffset: number;
+  type: string;
 };
 
 export type PlayerType = {

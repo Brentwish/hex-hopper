@@ -32,8 +32,9 @@ const useGameStore = create<GameState>(set => ({
               const id = maxTile++;
               const yOffset = y * (margin + tileSize) * (1 - 1 / (4 * Math.sqrt(3)));
               const isOdd = y % 2 === 1;
+              const type = Math.floor(Math.random() * 5) === 0 ? 'wall' : 'hall'
 
-              tiles.push({ id, x, isOdd, yOffset });
+              tiles.push({ id, x, isOdd, type, yOffset });
             }
           });
         })
@@ -74,11 +75,13 @@ const useGameStore = create<GameState>(set => ({
         }));
 
         if (tiles[0].yOffset >= (margin + tileSize) * (1 - 1 / (4 * Math.sqrt(3)))) {
-          const newTiles = Array.from(Array(width - (tiles[0].isOdd ? 0 : 1)).keys()).map(x => ({
+          const newRowWidth = width - (tiles[0].isOdd ? 0 : 1);
+          const newTiles = Array.from(Array(newRowWidth).keys()).map(x => ({
             id: maxTile++,
-            x: x,
+            x,
             isOdd: !tiles[0].isOdd,
             yOffset: 0,
+            type: Math.floor(Math.random() * 5) === 0 ? 'wall' : 'hall',
           }));
 
           return { maxTile, tiles: [...newTiles, ...tiles].splice(0, Math.round(2 * (width * height - 1))) };

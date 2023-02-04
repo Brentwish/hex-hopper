@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useEffect } from "react";
 import useAnimationFrame, { useInterval } from "../../hooks/useAnimationFrame";
 import useGameStore from "./store";
 import Board from "./Board";
 import config from "./config";
 import Slider from "../Slider";
-import BoldButton from "./Buttons/BoldButton";
+import BoldButton from "../Buttons/BoldButton";
 
 const Game = () => {
   const { actions, board } = useGameStore(({ actions, board }) => ({ actions, board }));

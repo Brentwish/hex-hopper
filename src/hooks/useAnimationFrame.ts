@@ -42,7 +42,6 @@ export const useInterval = (callback: (t: DOMHighResTimeStamp) => void) => {
   const lastUpdatedAt = useRef(0);
 
   const animate = (time: DOMHighResTimeStamp) => {
-
     callback(1000 / FRAME_RATE)
 
     id.current = setTimeout(animate, 1000 / FRAME_RATE);

@@ -3,7 +3,7 @@ import { TileType } from "../types";
 import styles from '../Game.module.scss'
 import useGameStore from "../store";
 
-const Tile = ({ tile: { id, x, isOdd, yOffset } }: { tile: TileType }) => {
+const Tile = ({ tile: { id, x, isOdd, type, yOffset } }: { tile: TileType }) => {
   const { board: { margin, tileSize } } = useGameStore(({ board }) => ({ board }));
 
   const mt = margin + tileSize;
@@ -12,6 +12,7 @@ const Tile = ({ tile: { id, x, isOdd, yOffset } }: { tile: TileType }) => {
     top: yOffset,
     width: tileSize,
     height: tileSize * (2 / Math.sqrt(3)),
+    display: type === 'wall' ? 'none' : '',
   };
 
   return (
