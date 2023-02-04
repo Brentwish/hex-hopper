@@ -1,7 +1,7 @@
 import React from "react";
 import Tile from "./Tile";
 import styles from '../Game.module.scss'
-import { TileType } from "../types";
+import { TileType } from "../../../types";
 import Player from "../Player";
 import useGameStore from "../store";
 

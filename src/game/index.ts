@@ -1,4 +1,6 @@
-import { BoardConfig, GameConfig, PlayerType } from "../components/Game/types";
+import { GameConfig } from "../types";
+import Board, { IBoard } from "./board";
+import Player, { IPlayer } from "./player";
 import Tile, { ITile } from "./tile";
 
 export interface IHexHopper extends GameConfig {
@@ -14,16 +16,16 @@ class HexHopper implements IHexHopper {
 
   gameSpeed: number;
 
-  player: PlayerType;
+  player: IPlayer;
 
-  board: BoardConfig;
+  board: IBoard;
 
   tiles: ITile[];
 
   constructor(config: GameConfig) {
     this.gameSpeed = config.gameSpeed;
-    this.player = config.player;
-    this.board = config.board;
+    this.player = new Player(config.player);
+    this.board = new Board(config.board);
     this._tId = 0;
     this.tiles = [];
   }

@@ -1,6 +1,5 @@
 import { create } from "zustand";
-import { GameConfig } from "./types";
-import config from "./config";
+import config from "../../config";
 import HexHopper, { IHexHopper } from "../../game";
 
 type GameActions = {
@@ -10,13 +9,12 @@ type GameActions = {
   setMargin: (margin: number) => void;
 }
 
-type GameState = GameConfig & {
+type GameState = {
   actions: GameActions;
   game: IHexHopper;
 };
 
 const useGameStore = create<GameState>(set => ({
-  ...config,
   game: new HexHopper(config),
   actions: {
     init: () => set((state) => {

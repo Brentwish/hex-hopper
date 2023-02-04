@@ -1,10 +1,10 @@
 import React from "react";
-import { TileType } from "../types";
+import { TileType } from "../../../types";
 import styles from '../Game.module.scss'
 import useGameStore from "../store";
 
 const Tile = ({ tile: { id, x, isOdd, type, yOffset } }: { tile: TileType }) => {
-  const { board: { margin, tileSize } } = useGameStore(({ board }) => ({ board }));
+  const { game: { board: { margin, tileSize } } } = useGameStore(({ game }) => ({ game }));
 
   const mt = margin + tileSize;
   const style = {

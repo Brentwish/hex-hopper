@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { PlayerType } from "../types";
+import React from "react";
+import { PlayerType } from "../../../types";
 import styles from './Player.module.scss'
 
 type PlayerProps = {
@@ -7,8 +7,6 @@ type PlayerProps = {
 }
 
 const Player = ({ player }: PlayerProps) => {
-  useEffect(() => console.log('wat'), [])
-
   return (
     <div 
       className={styles.player}

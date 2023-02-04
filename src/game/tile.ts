@@ -1,4 +1,4 @@
-import { BoardConfig, TileType } from "../components/Game/types";
+import { BoardConfig, TileType } from "../types";
 
 export interface ITile extends TileType {
   setYOffsetFromMargin: (margin: number) => void;
