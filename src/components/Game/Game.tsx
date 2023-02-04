@@ -4,15 +4,14 @@ import React, { useEffect } from "react";
 import useAnimationFrame, { useInterval } from "../../hooks/useAnimationFrame";
 import useGameStore from "./store";
 import Board from "./Board";
-import config from "./config";
 import Slider from "../Slider";
 import BoldButton from "../Buttons/BoldButton";
 
 const Game = () => {
-  const { actions, board } = useGameStore(({ actions, board }) => ({ actions, board }));
+  const { actions, game } = useGameStore(({ actions, game }) => ({ actions, game }));
   const { stop, run, running } = useAnimationFrame(actions.update);
 
-  useEffect(() => actions.init(config), []);
+  useEffect(() => actions.init(), []);
 
   return (
     <div className="flex flex-col items-center max-h-screen p-5">
@@ -26,7 +25,7 @@ const Game = () => {
           <BoldButton
             label="Reset"
             color="green"
-            onClick={() => actions.init({ ...config, board: board })}
+            onClick={() => actions.init()}
           />
         </div>
 
@@ -37,7 +36,7 @@ const Game = () => {
             min={12}
             max={96}
             color="green"
-            value={board.tileSize}
+            value={game.board.tileSize}
             onSlide={actions.setTileSize}
           />
           <Slider
@@ -46,7 +45,7 @@ const Game = () => {
             min={0}
             max={24}
             color="green"
-            value={board.margin}
+            value={game.board.margin}
             onSlide={actions.setMargin}
           />
         </div>

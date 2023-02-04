@@ -6,7 +6,8 @@ import Player from "../Player";
 import useGameStore from "../store";
 
 const Board = () => {
-  const { board, player, tiles } = useGameStore(({ board, player, tiles }) => ({ board, player, tiles }));
+  const { game } = useGameStore(({ game }) => ({ game }));
+  const { board, player, tiles } = game;
   const { width, margin, tileSize } = board;
 
   return (

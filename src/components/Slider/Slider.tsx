@@ -13,7 +13,7 @@ type SliderProps = {
 const Slider = ({ id, label, min, max, color, value, onSlide }: SliderProps) => {
   return (
     <div className="flex flex-col">
-      <label htmlFor={`slider-${id}`} className="form-label ">
+      <label htmlFor={`slider-${id}`} className="form-label">
         {`${label}${value}`}
       </label>
       <input

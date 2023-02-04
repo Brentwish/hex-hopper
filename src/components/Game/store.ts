@@ -1,95 +1,52 @@
 import { create } from "zustand";
-import { GameConfig, TileType } from "./types";
+import { GameConfig } from "./types";
 import config from "./config";
+import HexHopper, { IHexHopper } from "../../game";
 
 type GameActions = {
-  init: (config: GameConfig) => void;
+  init: () => void;
   update: (deltaTime: DOMHighResTimeStamp) => void;
   setTileSize: (size: number) => void;
-  setMargin: (size: number) => void;
+  setMargin: (margin: number) => void;
 }
 
 type GameState = GameConfig & {
   actions: GameActions;
-  tiles: TileType[];
-  maxTile: number;
+  game: IHexHopper;
 };
 
 const useGameStore = create<GameState>(set => ({
   ...config,
-  tiles: [],
-  maxTile: 0,
+  game: new HexHopper(config),
   actions: {
-    init: (config: GameConfig) => {
-      set((state) => {
-        let { maxTile } = state;
-        const { board: { margin, tileSize, width, height } } = config;
-        const tiles: TileType[] = [];
+    init: () => set((state) => {
+      const { game } = state;
 
-        Array.from(Array(height).keys()).forEach(y => {
-          Array.from(Array(width).keys()).forEach(x => {
-            if (y % 2 === 0 || x < width - 1) {
-              const id = maxTile++;
-              const yOffset = y * (margin + tileSize) * (1 - 1 / (4 * Math.sqrt(3)));
-              const isOdd = y % 2 === 1;
-              const type = Math.floor(Math.random() * 5) === 0 ? 'wall' : 'hall'
+      game.generateTiles();
 
-              tiles.push({ id, x, isOdd, type, yOffset });
-            }
-          });
-        })
-
-        return { maxTile, tiles }
-      });
-    },
+      return { game };
+    }),
     setTileSize: (size: number) => set(state => {
-      const { board, tiles } = state;
+      const { game } = state;
 
-      return {
-        board: { ...board, tileSize: size },
-        tiles: tiles.map(t => ({
-          ...t,
-          yOffset: t.yOffset * (board.margin + size) / (board.margin + board.tileSize),
-        }))
-      };
+      game.setTileSize(size)
+
+      return { game };
     }),
     setMargin: (margin: number) => set(state => {
-      const { board, tiles } = state;
+      const { game } = state;
 
-      return {
-        board: { ...board, margin },
-        tiles: tiles.map(t => ({
-          ...t,
-          yOffset: t.yOffset * (margin + board.tileSize) / (board.margin + board.tileSize),
-        }))
-      };
+      game.setMargin(margin)
+
+      return { game };
     }),
-    update: (deltaTime: DOMHighResTimeStamp) => {
-      set((state: GameState) => {
-        let { maxTile } = state;
-        const { board: { height, margin, tileSize, width } } = state;
+    update: (dt: DOMHighResTimeStamp) => set(state => {
+      const { game } = state;
 
-        const tiles = state.tiles.map(tile => ({
-          ...tile,
-          yOffset: tile.yOffset + (deltaTime / state.gameSpeed),
-        }));
+      game.update(dt)
 
-        if (tiles[0].yOffset >= (margin + tileSize) * (1 - 1 / (4 * Math.sqrt(3)))) {
-          const newRowWidth = width - (tiles[0].isOdd ? 0 : 1);
-          const newTiles = Array.from(Array(newRowWidth).keys()).map(x => ({
-            id: maxTile++,
-            x,
-            isOdd: !tiles[0].isOdd,
-            yOffset: 0,
-            type: Math.floor(Math.random() * 5) === 0 ? 'wall' : 'hall',
-          }));
-
-          return { maxTile, tiles: [...newTiles, ...tiles].splice(0, Math.round(2 * (width * height - 1))) };
-        }
-
-        return { maxTile, tiles };
-      });
-    },
+      return { game };
+    }),
   },
 }));
 
