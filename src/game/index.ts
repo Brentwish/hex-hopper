@@ -12,6 +12,7 @@ export interface IHexHopper extends GameConfig {
   setMargin: (size: number) => void;
   setTileSize: (size: number) => void;
   movePlayer: (dir: 'left' | 'right') => void;
+  increaseSpeed: () => void;
   board: IBoard;
   gameSpeed: number;
   player: IPlayer;
@@ -48,6 +49,10 @@ class HexHopper implements IHexHopper {
   movePlayer(dir: 'left' | 'right'): void {
     this.player.dir = dir;
     this.player.targetTile = this.player.tile[dir];
+  }
+
+  increaseSpeed(): void {
+    this.gameSpeed = Math.max(1, this.gameSpeed - 1 / 10);
   }
 }
 

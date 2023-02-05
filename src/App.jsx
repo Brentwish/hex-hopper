@@ -2,9 +2,9 @@ import Game from "./components/Game";
 
 const App = () => {
   return (
-  <div className="app">
-    <Game />
-  </div>
+    <div className="app">
+      <Game />
+    </div>
   );
 };
 

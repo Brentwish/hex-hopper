@@ -26,30 +26,30 @@ const useGameStore = create<GameState>(set => ({
     setTileSize: (size: number) => set(state => {
       const { game } = state;
 
-      game.setTileSize(size)
+      game.setTileSize(size);
 
-      return { game };
+      return {};
     }),
     setMargin: (margin: number) => set(state => {
       const { game } = state;
 
-      game.setMargin(margin)
+      game.setMargin(margin);
 
-      return { game };
+      return {};
     }),
     update: (dt: DOMHighResTimeStamp) => set(state => {
       const { game } = state;
 
       game.update(dt)
 
-      return { game };
+      return {};
     }),
     playerInput: (dir: 'left' | 'right') => set(state => {
       const { game } = state;
 
       game.movePlayer(dir)
 
-      return { game };
+      return {};
     }),
   },
 }));

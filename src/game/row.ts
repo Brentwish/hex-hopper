@@ -14,9 +14,13 @@ export interface IRow {
 
 class Row implements IRow {
   prevRow?: IRow;
+
   board: IBoard;
+
   tiles: ITile[];
+
   yOffset: number;
+
   isOdd: boolean;
 
   constructor(board: IBoard, isOdd: boolean, yOffset?: number) {
@@ -42,11 +46,11 @@ class Row implements IRow {
   }
 
   setYOffsetFromMargin(margin: number): void {
-    this.yOffset *= (margin + this.board.tileSize) / (this.board.margin + this.board.tileSize)
+    this.yOffset *= (margin + this.board.tileSize) / (this.board.margin + this.board.tileSize);
   }
 
   setYOffsetFromTileSize(size: number): void {
-    this.yOffset *= (this.board.margin + size) / (this.board.margin + this.board.tileSize)
+    this.yOffset *= (this.board.margin + size) / (this.board.margin + this.board.tileSize);
   }
 }
 

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React, { useEffect, useState } from "react";
-import useAnimationFrame, { useInterval } from "../../hooks/useAnimationFrame";
+import React, { useEffect } from "react";
+import useAnimationFrame from "../../hooks/useAnimationFrame";
 import useGameStore from "./store";
 import Board from "./Board";
 import Slider from "../Slider";
@@ -10,24 +10,16 @@ import BoldButton from "../Buttons/BoldButton";
 const Game = () => {
   const { actions, game } = useGameStore(({ actions, game }) => ({ actions, game }));
   const { stop, run, running } = useAnimationFrame(actions.update);
-  const [rendered, setRendered] = useState<boolean>(false);
+
+  const processInput = (e: KeyboardEvent) => {
+    if (e.key === 'a') return actions.playerInput('left');
+    if (e.key === 'd') return actions.playerInput('right');
+  };
 
   useEffect(() => {
-    if (!rendered) {
-      const processInput = (e: KeyboardEvent) => {
-        console.log(e.key)
-        if (e.key === 'a') return actions.playerInput('left');
-        if (e.key === 'd') return actions.playerInput('right');
-        if (e.key === ' ') return running ? stop() : run();
-      }
+    window.addEventListener('keydown', processInput);
 
-      window.addEventListener('keydown', processInput);
-      setRendered(true);
-
-      return () => document.removeEventListener('keydown', processInput);
-    }
-
-    return () => {};
+    return () => document.removeEventListener('keydown', processInput);
   }, []);
 
   return (

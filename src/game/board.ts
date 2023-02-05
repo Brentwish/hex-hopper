@@ -17,6 +17,7 @@ export interface IBoard extends BoardConfig {
   game: IHexHopper;
   firstRow: IRow;
   nextIndex: number;
+  rowHeight: number;
 }
 
 class Board implements IBoard {
@@ -43,12 +44,15 @@ class Board implements IBoard {
     this._tId = 0;
     this.rows = [];
 
-    this.rows.push(new Row(this, false))
+    this.rows.push(new Row(this, false, this.height * this.rowHeight));
 
     Array.from(Array(this.height - 1).keys()).forEach(y => {
-      const yOffset = (this.height - 1 - y) * (this.margin + this.tileSize) * (1 - 1 / (4 * Math.sqrt(3)))
-      this.addRow(yOffset)
+      this.addRow((this.height - 2 - y) * this.rowHeight);
     });
+  }
+
+  public get rowHeight() {
+    return (this.margin + this.tileSize) * (1 - 1 / (4 * Math.sqrt(3)));
   }
 
   public get nextIndex() {
@@ -62,9 +66,10 @@ class Board implements IBoard {
   update(dt: DOMHighResTimeStamp): void {
     this.rows.forEach(row => row.update(dt))
 
-    if (this.firstRow.yOffset >= (this.margin + this.tileSize) * (1 - 1 / (4 * Math.sqrt(3)))) {
-      this.addRow();
+    if (this.firstRow.yOffset >= this.rowHeight) {
+      this.addRow(this.firstRow.yOffset - this.rowHeight);
       this.game.player.moveTiles();
+      this.game.increaseSpeed();
     }
   }
 
@@ -74,6 +79,7 @@ class Board implements IBoard {
 
     this.firstRow.tiles.forEach((tile, index) => {
       if (index === 0) {
+        if (!isOdd) tile.left = newRow.tiles[index];
         tile.right = newRow.tiles[index + (isOdd ? 0 : 1)];
       } else if (index === this.width - 1) {
         tile.left = newRow.tiles[index + (isOdd ? -1 : 0)];
