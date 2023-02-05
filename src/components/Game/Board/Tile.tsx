@@ -1,18 +1,24 @@
 import React from "react";
-import { TileType } from "../../../types";
+import { ITile } from "../../../game/tile";
 import styles from '../Game.module.scss'
 import useGameStore from "../store";
 
-const Tile = ({ tile: { id, x, isOdd, type, yOffset } }: { tile: TileType }) => {
+type TileProps = {
+  tile: ITile;
+  isOdd: boolean;
+};
+
+const Tile = ({ tile, isOdd }: TileProps) => {
   const { game: { board: { margin, tileSize } } } = useGameStore(({ game }) => ({ game }));
+  const { id, x, type } = tile;
 
   const mt = margin + tileSize;
   const style = {
     left: x * mt + (mt / 4) + (isOdd ? mt / 2 : 0),
-    top: yOffset,
     width: tileSize,
     height: tileSize * (2 / Math.sqrt(3)),
     display: type === 'wall' ? 'none' : '',
+    backgroundColor: tile.player ? 'white' : 'grey',
   };
 
   return (

@@ -18,9 +18,7 @@ const useGameStore = create<GameState>(set => ({
   game: new HexHopper(config),
   actions: {
     init: () => set((state) => {
-      const { game } = state;
-
-      game.generateTiles();
+      const game = new HexHopper(config);
 
       return { game };
     }),

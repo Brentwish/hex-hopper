@@ -1,4 +1,4 @@
-import { GameConfig } from "./types";
+import { GameConfig } from "./game";
 
 export const config: GameConfig = {
   board: {
@@ -10,8 +10,8 @@ export const config: GameConfig = {
   gameSpeed: 10,
   player: {
     id: 1,
-    height: 35,
-    width: 35,
+    height: 30,
+    width: 30,
     x: 150,
     y: 150,
   },

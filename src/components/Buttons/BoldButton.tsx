@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 type ButtonProps = {
   label: string;
-  color: string;
+  color: 'green';
   onClick: () => void;
 };
 
 const BoldButton = ({ label, color, onClick }: ButtonProps) => {
+  const colorClasses = useMemo(() => {
+    if (color === 'green') return 'bg-green-500 hover:bg-green-400 border-green-700 hover:border-green-500';
+    return '';
+  }, [color])
+
   return (
     <button
       type="button"
-      className={`bg-${color}-500 hover:bg-${color}-400 text-white font-bold py-2 px-4 m-5 border-b-4 border-${color}-700 hover:border-${color}-500 rounded`}
+      className={`text-white font-bold py-2 px-4 m-5 border-b-4 rounded ${colorClasses}`}
       onClick={onClick}
     >
       {label}

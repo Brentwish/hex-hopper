@@ -1,9 +1,9 @@
 import React from "react";
-import { PlayerType } from "../../../types";
+import { PlayerConfig } from "../../../game/player";
 import styles from './Player.module.scss'
 
 type PlayerProps = {
-  player: PlayerType;
+  player: PlayerConfig;
 }
 
 const Player = ({ player }: PlayerProps) => {
@@ -16,9 +16,7 @@ const Player = ({ player }: PlayerProps) => {
         left: player.x,
         top: player.y,
       }}
-    >
-      {player.id}
-    </div>
+    />
   );
 };
 
