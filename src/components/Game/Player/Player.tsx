@@ -15,6 +15,7 @@ const Player = ({ player }: PlayerProps) => {
         height: player.height,
         left: player.x,
         top: player.y,
+        transform: player.dir === 'left' ? 'rotate(-30deg)' : 'rotate(30deg)',
       }}
     />
   );

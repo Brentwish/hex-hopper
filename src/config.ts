@@ -11,9 +11,10 @@ export const config: GameConfig = {
   player: {
     id: 1,
     height: 30,
-    width: 30,
+    width: 20,
     x: 150,
     y: 150,
+    dir: 'left',
   },
 };
 

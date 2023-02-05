@@ -16,7 +16,10 @@ const BoldButton = ({ label, color, onClick }: ButtonProps) => {
     <button
       type="button"
       className={`text-white font-bold py-2 px-4 m-5 border-b-4 rounded ${colorClasses}`}
-      onClick={onClick}
+      onClick={(e) => {
+        (e.target as HTMLButtonElement).blur();
+        onClick();
+      }}
     >
       {label}
     </button>

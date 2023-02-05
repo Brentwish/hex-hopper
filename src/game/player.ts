@@ -7,9 +7,11 @@ export type PlayerConfig = {
   width: number;
   y: number;
   x: number;
+  dir: 'left' | 'right';
 }
 
 export interface IPlayer extends PlayerConfig {
+  dir: 'left' | 'right';
   tile: ITile;
   targetTile: ITile | null;
   update: (dt: DOMHighResTimeStamp) => void;
@@ -33,18 +35,20 @@ class Player implements IPlayer {
 
   targetTile: ITile | null;
 
+  dir: 'left' | 'right';
+
   constructor(config: PlayerConfig, game: IHexHopper) {
     this.game = game;
     this.id = config.id;
     this.width = config.width;
     this.height = config.height;
+    this.dir = config.dir;
 
     const tile = this.game.board.rows[Math.floor(this.game.board.height / 3)].tiles[Math.floor(this.game.board.width / 2)];
 
     tile.player = this;
     this.tile = tile;
-    const r = Math.floor(Math.random() * 2);
-    this.targetTile = r % 2 === 0 ? this.tile.left : this.tile.right;
+    this.targetTile = this.tile[this.dir];
 
     this.x = this.xOffset;
     this.y = this.yOffset;
@@ -75,8 +79,7 @@ class Player implements IPlayer {
       this.targetTile.player = this;
       this.tile = this.targetTile;
 
-      const r = Math.floor(Math.random() * 2);
-      if (r % 2 === 0) {
+      if (this.dir === 'left') {
         if (this.targetTile.left) {
           this.targetTile = this.targetTile.left;
         } else {

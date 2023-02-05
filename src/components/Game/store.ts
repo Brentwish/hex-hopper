@@ -7,6 +7,7 @@ type GameActions = {
   update: (deltaTime: DOMHighResTimeStamp) => void;
   setTileSize: (size: number) => void;
   setMargin: (margin: number) => void;
+  playerInput: (dir: 'left' | 'right') => void;
 }
 
 type GameState = {
@@ -17,7 +18,7 @@ type GameState = {
 const useGameStore = create<GameState>(set => ({
   game: new HexHopper(config),
   actions: {
-    init: () => set((state) => {
+    init: () => set(state => {
       const game = new HexHopper(config);
 
       return { game };
@@ -40,6 +41,13 @@ const useGameStore = create<GameState>(set => ({
       const { game } = state;
 
       game.update(dt)
+
+      return { game };
+    }),
+    playerInput: (dir: 'left' | 'right') => set(state => {
+      const { game } = state;
+
+      game.movePlayer(dir)
 
       return { game };
     }),
